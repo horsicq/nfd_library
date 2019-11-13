@@ -25,10 +25,40 @@ extern "C" {
 #endif
 
 int LIB_SOURCE_EXPORT CreateHandle()
+{  
+    return NFD_lib().createHandle();
+}
+
+bool LIB_SOURCE_EXPORT CloseHandle(int nHandle)
 {
-    return 0;
+    return NFD_lib().closeHandle(nHandle);
 }
 
 #ifdef __cplusplus
 }
 #endif
+
+NFD_lib::NFD_lib()
+{
+
+}
+
+int NFD_lib::createHandle()
+{
+    return 0;
+}
+
+char *NFD_lib::scanFileA(int nHandle, char *pszFileName)
+{
+    return 0;
+}
+
+wchar_t *NFD_lib::scanFileW(int nHandle, wchar_t *pwszFileName)
+{
+    return 0;
+}
+
+bool NFD_lib::closeHandle(int nHandle)
+{
+    return false;
+}

@@ -29,4 +29,14 @@
 #  define LIB_SOURCE_EXPORT Q_DECL_IMPORT
 #endif
 
+class NFD_lib
+{
+public:
+    NFD_lib();
+    int createHandle();
+    char *scanFileA(int nHandle,char *pszFileName);
+    wchar_t *scanFileW(int nHandle, wchar_t *pwszFileName);
+    bool closeHandle(int nHandle);
+};
+
 #endif // NFD_LIB_H
