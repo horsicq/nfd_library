@@ -21,7 +21,7 @@
 #ifndef NFD_LIB_H
 #define NFD_LIB_H
 
-#include <QtCore/qglobal.h>
+#include "staticscan.h"
 
 #if defined(LIB_SOURCE_LIBRARY)
 #  define LIB_SOURCE_EXPORT Q_DECL_EXPORT
@@ -34,9 +34,15 @@ class NFD_lib
 public:
     NFD_lib();
     int createHandle();
-    char *scanFileA(int nHandle,char *pszFileName);
-    wchar_t *scanFileW(int nHandle, wchar_t *pwszFileName);
+    char *scanFileA(int nHandle,char *pszFileName,unsigned int nFlags);
+    wchar_t *scanFileW(int nHandle, wchar_t *pwszFileName,unsigned int nFlags);
     bool closeHandle(int nHandle);
+
+private:
+    QString _scanFile(QString sFileName,quint32 nFlags);
+
+private:
+    static QMap<int,char *> mapHandles;
 };
 
 #endif // NFD_LIB_H
