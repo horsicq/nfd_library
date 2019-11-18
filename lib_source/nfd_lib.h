@@ -22,6 +22,7 @@
 #define NFD_LIB_H
 
 #include "staticscan.h"
+#include "staticscanitemmodel.h"
 
 #if defined(LIB_SOURCE_LIBRARY)
 #  define LIB_SOURCE_EXPORT Q_DECL_EXPORT
@@ -32,6 +33,14 @@
 class NFD_lib
 {
 public:
+    enum SF
+    {
+        SF_RECURSIVE    =0x00000001,
+        SF_DEEPSCAN     =0x00000002,
+        SF_RESULTASXML  =0x00000004,
+        SF_RESULTASJSON =0x00000008,
+    };
+
     NFD_lib();
     int createHandle();
     char *scanFileA(int nHandle,char *pszFileName,unsigned int nFlags);

@@ -97,11 +97,30 @@ bool NFD_lib::closeHandle(int nHandle)
 
 QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
 {
-    QString sResult;
-
     SpecAbstract::SCAN_OPTIONS options={};
+
+    if(nFlags&SF_DEEPSCAN)
+    {
+        options.bDeepScan=true;
+    }
+
+    if(nFlags&SF_RECURSIVE)
+    {
+        options.bRecursive=true;
+    }
+
+    if(nFlags&SF_RESULTASJSON)
+    {
+        options.bResultAsJSON=true;
+    }
+    else if(nFlags&SF_RESULTASXML)
+    {
+        options.bResultAsXML=true;
+    }
 
     SpecAbstract::SCAN_RESULT scanResult=StaticScan::processFile(sFileName,&options);
 
-    return sResult;
+    StaticScanItemModel model(&scanResult.listRecords);
+
+    return model.toString(&options);
 }
