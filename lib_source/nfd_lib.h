@@ -47,6 +47,8 @@ public:
     wchar_t *scanFileW(int nHandle, wchar_t *pwszFileName,unsigned int nFlags);
     bool closeHandle(int nHandle);
 
+    QMap<int,char *> *getMapHandles();
+
 private:
     QString _scanFile(QString sFileName,quint32 nFlags);
 

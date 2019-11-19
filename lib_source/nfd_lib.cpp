@@ -66,12 +66,32 @@ int NFD_lib::createHandle()
 
 char *NFD_lib::scanFileA(int nHandle, char *pszFileName, unsigned int nFlags)
 {
-    return 0;
+    QString sResult=_scanFile(pszFileName,nFlags);
+
+    int nSize=sResult.size()+1;
+
+    char *pMemory=new char[nSize];
+
+    XBinary::_copyMemory(pMemory,sResult.toLatin1().data(),nSize);
+
+    getMapHandles()->insert(nHandle,pMemory);
+
+    return pMemory;
 }
 
 wchar_t *NFD_lib::scanFileW(int nHandle, wchar_t *pwszFileName, unsigned int nFlags)
 {
-    return 0;
+    QString sResult=_scanFile(QString::fromWCharArray(pwszFileName,-1),nFlags);
+
+    int nSize=(sResult.size()+1)*2;
+
+    char *pMemory=new char[nSize];
+
+    sResult.toWCharArray((wchar_t *)pMemory);
+
+    getMapHandles()->insert(nHandle,pMemory);
+
+    return (wchar_t *)pMemory;
 }
 
 bool NFD_lib::closeHandle(int nHandle)
@@ -93,6 +113,11 @@ bool NFD_lib::closeHandle(int nHandle)
     }
 
     return bResult;
+}
+
+QMap<int, char *> *NFD_lib::getMapHandles()
+{
+    return &(mapHandles);
 }
 
 QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
