@@ -24,12 +24,22 @@
 extern "C" {
 #endif
 
-int LIB_SOURCE_EXPORT CreateScanHandle()
+LIB_SOURCE_EXPORT int CreateScanHandle()
 {  
     return NFD_lib().createHandle();
 }
 
-bool LIB_SOURCE_EXPORT CloseScanHandle(int nHandle)
+LIB_SOURCE_EXPORT char *ScanFileA(int nHandle, char *pszFileName, unsigned int nFlags)
+{
+    return NFD_lib().scanFileA(nHandle,pszFileName,nFlags);
+}
+
+LIB_SOURCE_EXPORT wchar_t *ScanFileW(int nHandle, wchar_t *pwszFileName, unsigned int nFlags)
+{
+    return NFD_lib().scanFileW(nHandle,pwszFileName,nFlags);
+}
+
+LIB_SOURCE_EXPORT bool CloseScanHandle(int nHandle)
 {
     return NFD_lib().closeHandle(nHandle);
 }
@@ -43,22 +53,25 @@ NFD_lib::NFD_lib()
 
 }
 
-QMap<int,char *> NFD_lib::mapHandles={};
+quint64 NFD_lib::nCurrentHandle=1;
+QMap<quint64,char *> NFD_lib::mapHandles={};
 
 int NFD_lib::createHandle()
 {
     int nResult=0;
 
-    for(int i=1;i<1000;i++)
+    while(mapHandles.contains(nCurrentHandle))
     {
-        if(!mapHandles.contains(i))
-        {
-            nResult=i;
+        nCurrentHandle++;
+    }
 
-            mapHandles.insert(i,0);
+    mapHandles.insert(nCurrentHandle,0);
 
-            break;
-        }
+    nCurrentHandle++;
+
+    if(nCurrentHandle==0)
+    {
+        nCurrentHandle++;
     }
 
     return nResult;
@@ -115,7 +128,7 @@ bool NFD_lib::closeHandle(int nHandle)
     return bResult;
 }
 
-QMap<int, char *> *NFD_lib::getMapHandles()
+QMap<quint64, char *> *NFD_lib::getMapHandles()
 {
     return &(mapHandles);
 }

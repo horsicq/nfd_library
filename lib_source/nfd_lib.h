@@ -47,13 +47,14 @@ public:
     wchar_t *scanFileW(int nHandle, wchar_t *pwszFileName,unsigned int nFlags);
     bool closeHandle(int nHandle);
 
-    QMap<int,char *> *getMapHandles();
+    QMap<quint64,char *> *getMapHandles();
 
 private:
     QString _scanFile(QString sFileName,quint32 nFlags);
 
 private:
-    static QMap<int,char *> mapHandles;
+    static QMap<quint64,char *> mapHandles;
+    static quint64 nCurrentHandle;
 };
 
 #endif // NFD_LIB_H
