@@ -35,10 +35,11 @@ class NFD_lib
 public:
     enum SF
     {
-        SF_RECURSIVE    =0x00000001,
-        SF_DEEPSCAN     =0x00000002,
-        SF_RESULTASXML  =0x00000004,
-        SF_RESULTASJSON =0x00000008,
+        SF_RECURSIVE        =0x00000001,
+        SF_DEEPSCAN         =0x00000002,
+        SF_RESULTASXML      =0x00000004,
+        SF_RESULTASJSON     =0x00000008,
+        SF_HEURISTICSCAN    =0x00000010,
     };
 
     NFD_lib();

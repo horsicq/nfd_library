@@ -144,7 +144,12 @@ QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
 
     if(nFlags&SF_RECURSIVE)
     {
-        options.bRecursive=true;
+        options.bRecursiveScan=true;
+    }
+
+    if(nFlags&SF_HEURISTICSCAN)
+    {
+        options.bHeuristicScan=true;
     }
 
     if(nFlags&SF_RESULTASJSON)
