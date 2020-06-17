@@ -24,22 +24,22 @@
 extern "C" {
 #endif
 
-LIB_SOURCE_EXPORT int CreateScanHandle()
+LIB_SOURCE_EXPORT int NFD_CreateScanHandle()
 {  
     return NFD_lib().createHandle();
 }
 
-LIB_SOURCE_EXPORT char *ScanFileA(int nHandle, char *pszFileName, unsigned int nFlags)
+LIB_SOURCE_EXPORT char *NFD_ScanFileA(int nHandle, char *pszFileName, unsigned int nFlags)
 {
     return NFD_lib().scanFileA(nHandle,pszFileName,nFlags);
 }
 
-LIB_SOURCE_EXPORT wchar_t *ScanFileW(int nHandle, wchar_t *pwszFileName, unsigned int nFlags)
+LIB_SOURCE_EXPORT wchar_t *NFD_ScanFileW(int nHandle, wchar_t *pwszFileName, unsigned int nFlags)
 {
     return NFD_lib().scanFileW(nHandle,pwszFileName,nFlags);
 }
 
-LIB_SOURCE_EXPORT bool CloseScanHandle(int nHandle)
+LIB_SOURCE_EXPORT bool NFD_CloseScanHandle(int nHandle)
 {
     return NFD_lib().closeHandle(nHandle);
 }
@@ -87,6 +87,8 @@ char *NFD_lib::scanFileA(int nHandle, char *pszFileName, unsigned int nFlags)
 
     XBinary::_copyMemory(pMemory,sResult.toLatin1().data(),nSize);
 
+    closeHandle(nHandle);
+
     getMapHandles()->insert(nHandle,pMemory);
 
     return pMemory;
@@ -101,6 +103,8 @@ wchar_t *NFD_lib::scanFileW(int nHandle, wchar_t *pwszFileName, unsigned int nFl
     char *pMemory=new char[nSize];
 
     sResult.toWCharArray((wchar_t *)pMemory);
+
+    closeHandle(nHandle);
 
     getMapHandles()->insert(nHandle,pMemory);
 
