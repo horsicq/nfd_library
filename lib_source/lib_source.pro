@@ -2,7 +2,8 @@ QT -= gui
 
 TEMPLATE = lib
 DEFINES += LIB_SOURCE_LIBRARY
-#CONFIG+= staticlib
+CONFIG -= staticlib
+CONFIG += dll
 
 CONFIG += c++11
 TARGET = nfd
