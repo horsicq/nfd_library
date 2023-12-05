@@ -14,6 +14,7 @@ SOURCES += \
     nfd_lib.cpp
 
 HEADERS += \
+    ../include/nfd.h \
     nfd_lib.h
 
 include(../build.pri)
@@ -21,4 +22,8 @@ include(../build.pri)
 !contains(XCONFIG, staticscan) {
     XCONFIG += staticscan
     include(../StaticScan/staticscan.pri)
+}
+
+win32{
+    LIBS += comsuppwd.lib
 }
