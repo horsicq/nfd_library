@@ -13,3 +13,9 @@
 [submodule "XDEX"]
 	path = XDEX
 	url = https://github.com/horsicq/XDEX.git
+[submodule "build_tools"]
+	path = build_tools
+	url = https://github.com/horsicq/build_tools
+[submodule "XPDF"]
+	path = XPDF
+	url = https://github.com/horsicq/XPDF
