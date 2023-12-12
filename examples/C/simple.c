@@ -4,16 +4,15 @@
 int main(int argc, char* argv[])
 {
     char *pszFileName="C:\\Windows\\notepad.exe";
-    int nHandle=0;
     char *pszResult=0;
     
-    nHandle=NFD_CreateScanHandle(); 
-    
-    pszResult=NFD_ScanFileA(nHandle,pszFileName,NFD_RECURSIVE+NFD_DEEPSCAN);
+    pszResult=NFD_ScanFileA(pszFileName, NFD_DEEPSCAN | NFD_HEURISTICSCAN | NFD_RECURSIVESCAN, pszDatabase);
     printf("%s",pszResult);
     
-    NFD_CloseScanHandle(nHandle);
+    NFD_FreeMemoryA(pszResult);
 
     return 0;
 }
+
+
 
