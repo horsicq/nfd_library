@@ -4,15 +4,15 @@
 #include <windows.h>
 
 // flags
-#define DIE_DEEPSCAN            0x00000001
-#define DIE_HEURISTICSCAN       0x00000002
-#define DIE_ALLTYPESSCAN        0x00000004
-#define DIE_RECURSIVESCAN       0x00000008
-#define DIE_VERBOSE             0x00000010
-#define DIE_RESULTASXML         0x00010000
-#define DIE_RESULTASJSON        0x00020000
-#define DIE_RESULTASTSV         0x00040000
-#define DIE_RESULTASCSV         0x00080000
+#define NFD_DEEPSCAN            0x00000001
+#define NFD_HEURISTICSCAN       0x00000002
+#define NFD_ALLTYPESSCAN        0x00000004
+#define NFD_RECURSIVESCAN       0x00000008
+#define NFD_VERBOSE             0x00000010
+#define NFD_RESULTASXML         0x00010000
+#define NFD_RESULTASJSON        0x00020000
+#define NFD_RESULTASTSV         0x00040000
+#define NFD_RESULTASCSV         0x00080000
 
 #ifdef __cplusplus
 extern "C" {
