@@ -18,11 +18,11 @@
 extern "C" {
 #endif
 
-char *NFD_ScanFileA(char *pszFileName, unsigned int nFlags, char *pszDatabase);
-wchar_t *NFD_ScanFileW(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pwszDatabase);
+char *NFD_ScanFileA(char *pszFileName, unsigned int nFlags);
+wchar_t *NFD_ScanFileW(wchar_t *pwszFileName, unsigned int nFlags);
 void NFD_FreeMemoryA(char *pszString);
 void NFD_FreeMemoryW(char *pwszString);
-BSTR NFD_VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pwszDatabase);
+int NFD_VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pwszBuffer, int nBufferSize);
 
 #ifdef UNICODE
 #define NFD_ScanFile NFD_ScanFileW

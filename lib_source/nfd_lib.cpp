@@ -34,6 +34,22 @@ LIB_SOURCE_EXPORT wchar_t *NFD_ScanFileW(int nHandle, wchar_t *pwszFileName, uns
     return NFD_lib().scanFileW(nHandle,pwszFileName,nFlags);
 }
 
+LIB_SOURCE_EXPORT void NFD_FreeMemoryA(char *pszString)
+{
+    NFD_lib().freeMemoryA(pszString);
+}
+
+LIB_SOURCE_EXPORT void NFD_FreeMemoryW(char *pwszString)
+{
+    NFD_lib().freeMemoryA(pwszString);
+}
+#ifdef Q_OS_WIN32
+LIB_SOURCE_EXPORT int NFD_VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pwszBuffer, int nBufferSize)
+{
+    return NFD_lib().VB_ScanFile(pwszFileName, nFlags, pwszBuffer, nBufferSize);
+}
+#endif
+
 #ifdef __cplusplus
 }
 #endif
