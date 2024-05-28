@@ -1,24 +1,3 @@
-[submodule "StaticScan"]
-	path = dep/StaticScan
-	url = https://github.com/horsicq/StaticScan.git
-[submodule "Formats"]
-	path = dep/Formats
-	url = https://github.com/horsicq/Formats.git
-[submodule "SpecAbstract"]
-	path = dep/SpecAbstract
-	url = https://github.com/horsicq/SpecAbstract.git
-[submodule "XArchive"]
-	path = dep/XArchive
-	url = https://github.com/horsicq/XArchive.git
-[submodule "XDEX"]
-	path = dep/XDEX
-	url = https://github.com/horsicq/XDEX.git
-[submodule "build_tools"]
-	path = dep/build_tools
-	url = https://github.com/horsicq/build_tools
-[submodule "XPDF"]
-	path = dep/XPDF
-	url = https://github.com/horsicq/XPDF
 [submodule "dep/build_tools"]
 	path = dep/build_tools
 	url = https://github.com/horsicq/build_tools
