@@ -19,3 +19,24 @@
 [submodule "XPDF"]
 	path = dep/XPDF
 	url = https://github.com/horsicq/XPDF
+[submodule "dep/build_tools"]
+	path = dep/build_tools
+	url = https://github.com/horsicq/build_tools
+[submodule "dep/Formats"]
+	path = dep/Formats
+	url = https://github.com/horsicq/Formats
+[submodule "dep/SpecAbstract"]
+	path = dep/SpecAbstract
+	url = https://github.com/horsicq/SpecAbstract
+[submodule "dep/StaticScan"]
+	path = dep/StaticScan
+	url = https://github.com/horsicq/StaticScan
+[submodule "dep/XArchive"]
+	path = dep/XArchive
+	url = https://github.com/horsicq/XArchive
+[submodule "dep/XDEX"]
+	path = dep/XDEX
+	url = https://github.com/horsicq/XDEX
+[submodule "dep/XPDF"]
+	path = dep/XPDF
+	url = https://github.com/horsicq/XPDF
