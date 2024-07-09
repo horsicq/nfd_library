@@ -19,3 +19,9 @@
 [submodule "dep/XPDF"]
 	path = dep/XPDF
 	url = https://github.com/horsicq/XPDF
+[submodule "dep/XExtractor"]
+	path = dep/XExtractor
+	url = https://github.com/horsicq/XExtractor
+[submodule "dep/XScanEngine"]
+	path = dep/XScanEngine
+	url = https://github.com/horsicq/XScanEngine
