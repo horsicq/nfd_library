@@ -30,7 +30,7 @@ add_definitions(
     -DUSE_YARA
     )
 
-include(${CMAKE_CURRENT_LIST_DIR}/../../dep/StaticScan/staticscan.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../../dep/SpecAbstract/staticscan.cmake)
 include(GNUInstallDirs)
 
 set(PROJECT_SOURCES

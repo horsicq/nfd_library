@@ -115,7 +115,7 @@ QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
 {
     QString sResult;
 
-    SpecAbstract::SCAN_OPTIONS options={};
+    XBinary::SCAN_OPTIONS options={};
 
     if(nFlags&SF_DEEPSCAN) {
         options.bIsDeepScan=true;
