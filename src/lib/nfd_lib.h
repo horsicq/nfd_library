@@ -21,7 +21,7 @@
 #ifndef NFD_LIB_H
 #define NFD_LIB_H
 
-#include "staticscan.h"
+#include "specabstract.h"
 #include "scanitemmodel.h"
 
 #if defined(LIB_SOURCE_LIBRARY)

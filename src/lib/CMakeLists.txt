@@ -30,18 +30,26 @@ add_definitions(
     -DUSE_YARA
     )
 
-include(${CMAKE_CURRENT_LIST_DIR}/../../dep/SpecAbstract/staticscan.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/../../dep/SpecAbstract/specabstract.cmake)
 include(GNUInstallDirs)
 
 set(PROJECT_SOURCES
-        ${STATICSCAN_SOURCES}
+        ${SPECABSTRACT_SOURCES}
         nfd_lib.cpp
         nfd_lib.h
 )
     
-add_library(nfd SHARED
-    ${PROJECT_SOURCES}
-)
+if(DIE_BUILD_AS_STATIC)
+    message(STATUS "Building NfdLib as static")
+    add_library(nfd STATIC
+        ${PROJECT_SOURCES}
+    )
+else()
+    message(STATUS "Building NfdLib as shared")
+    add_library(nfd SHARED
+        ${PROJECT_SOURCES}
+    )
+endif()
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 

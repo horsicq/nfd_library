@@ -115,7 +115,7 @@ QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
 {
     QString sResult;
 
-    XBinary::SCAN_OPTIONS options={};
+    XScanEngine::SCAN_OPTIONS options={};
 
     if(nFlags&SF_DEEPSCAN) {
         options.bIsDeepScan=true;
@@ -153,11 +153,9 @@ QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
         options.bResultAsCSV=true;
     }
 
-    SpecAbstract::SCAN_RESULT scanResult=StaticScan::processFile(sFileName,&options);
+    XScanEngine::SCAN_RESULT scanResult=SpecAbstract().scanFile(sFileName,&options);
 
-    QList<XBinary::SCANSTRUCT> listResult = SpecAbstract::convert(&(scanResult.listRecords));
-
-    ScanItemModel model(&listResult, 1, false);
+    ScanItemModel model(&(scanResult.listRecords), 1, false);
 
     XBinary::FORMATTYPE formatType = XBinary::FORMATTYPE_TEXT;
 
