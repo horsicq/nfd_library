@@ -23,6 +23,10 @@
 
 #include "specabstract.h"
 #include "scanitemmodel.h"
+#ifdef Q_OS_WIN32
+#include <windows.h>
+#include <comutil.h>
+#endif
 
 #if defined(LIB_SOURCE_LIBRARY)
 #  define LIB_SOURCE_EXPORT Q_DECL_EXPORT
@@ -33,22 +37,11 @@
 class NFD_lib
 {
 public:
-    enum SF
-    {
-        SF_DEEPSCAN         =0x00000001,
-        SF_HEURISTICSCAN    =0x00000002,
-        SF_ALLTYPESSCAN     =0x00000004,
-        SF_RECURSIVESCAN    =0x00000008,
-        SF_VERBOSE          =0x00000010,
-        SF_RESULTASXML      =0x00010000,
-        SF_RESULTASJSON     =0x00020000,
-        SF_RESULTASTSV      =0x00040000,
-        SF_RESULTASCSV      =0x00080000,
-    };
-
     NFD_lib();
     char *scanFileA(char *pszFileName, unsigned int nFlags);
     wchar_t *scanFileW(wchar_t *pwszFileName,unsigned int nFlags);
+    char *scanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags);
+    wchar_t *scanMemoryW(char *pMemory, int nMemorySize, unsigned int nFlags);
     void freeMemoryA(char *pszString);
     void freeMemoryW(wchar_t *pwszString);
 #ifdef Q_OS_WIN32
@@ -57,6 +50,7 @@ public:
 
 private:
     QString _scanFile(QString sFileName,quint32 nFlags);
+    QString _scanMemory(char *pMemory, int nMemorySize, quint32 nFlags);
 };
 
 #endif // NFD_LIB_H

@@ -22,6 +22,8 @@ extern "C" {
 
 char *NFD_ScanFileA(char *pszFileName, unsigned int nFlags);
 wchar_t *NFD_ScanFileW(wchar_t *pwszFileName, unsigned int nFlags);
+char *NFD_ScanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags);
+wchar_t *NFD_ScanMemoryW(char *pMemory, int nMemorySize, unsigned int nFlags);
 void NFD_FreeMemoryA(char *pszString);
 void NFD_FreeMemoryW(wchar_t *pwszString);
 
@@ -31,9 +33,11 @@ int NFD_VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pwszBuf
 
 #ifdef UNICODE
 #define NFD_ScanFile NFD_ScanFileW
+#define NFD_ScanMemory NFD_ScanMemoryW
 #define NFD_FreeMemory NFD_FreeMemoryW
 #else
 #define NFD_ScanFile NFD_ScanFileA
+#define NFD_ScanMemory NFD_ScanMemoryA
 #define NFD_FreeMemory NFD_FreeMemoryA
 #endif
 

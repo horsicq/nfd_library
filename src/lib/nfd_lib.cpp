@@ -34,6 +34,16 @@ LIB_SOURCE_EXPORT wchar_t *NFD_ScanFileW(wchar_t *pwszFileName, unsigned int nFl
     return NFD_lib().scanFileW(pwszFileName,nFlags);
 }
 
+LIB_SOURCE_EXPORT char *NFD_ScanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags)
+{
+    return NFD_lib().scanMemoryA(pMemory, nMemorySize, nFlags);
+}
+
+LIB_SOURCE_EXPORT wchar_t *NFD_ScanMemoryW(char *pMemory, int nMemorySize, unsigned int nFlags)
+{
+    return NFD_lib().scanMemoryW(pMemory, nMemorySize, nFlags);
+}
+
 LIB_SOURCE_EXPORT void NFD_FreeMemoryA(char *pszString)
 {
     NFD_lib().freeMemoryA(pszString);
@@ -65,12 +75,12 @@ char *NFD_lib::scanFileA(char *pszFileName, unsigned int nFlags)
 
     QByteArray baResult = sResult.toUtf8();
 
-    char *pMemory=new char[baResult.size() + 1];
+    char *pBuffer=new char[baResult.size() + 1];
 
-    XBinary::_copyMemory(pMemory,baResult.data(),baResult.size());
-    pMemory[baResult.size()] = 0;
+    XBinary::_copyMemory(pBuffer,baResult.data(),baResult.size());
+    pBuffer[baResult.size()] = 0;
 
-    return pMemory;
+    return pBuffer;
 }
 
 wchar_t *NFD_lib::scanFileW(wchar_t *pwszFileName, unsigned int nFlags)
@@ -79,11 +89,38 @@ wchar_t *NFD_lib::scanFileW(wchar_t *pwszFileName, unsigned int nFlags)
 
     int nSize=(sResult.size()+1)*2;
 
-    char *pMemory=new char[nSize];
+    char *pBuffer=new char[nSize];
 
-    sResult.toWCharArray((wchar_t *)pMemory);
+    sResult.toWCharArray((wchar_t *)pBuffer);
 
-    return (wchar_t *)pMemory;
+    return (wchar_t *)pBuffer;
+}
+
+char *NFD_lib::scanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags)
+{
+    QString sResult=_scanMemory(pMemory, nMemorySize, nFlags);
+
+    QByteArray baResult = sResult.toUtf8();
+
+    char *pBuffer=new char[baResult.size() + 1];
+
+    XBinary::_copyMemory(pBuffer,baResult.data(),baResult.size());
+    pBuffer[baResult.size()] = 0;
+
+    return pBuffer;
+}
+
+wchar_t *NFD_lib::scanMemoryW(char *pMemory, int nMemorySize, unsigned int nFlags)
+{
+    QString sResult=_scanMemory(pMemory, nMemorySize, nFlags);
+
+    int nSize=(sResult.size()+1)*2;
+
+    char *pBuffer=new char[nSize];
+
+    sResult.toWCharArray((wchar_t *)pBuffer);
+
+    return (wchar_t *)pBuffer;
 }
 
 void NFD_lib::freeMemoryA(char *pszString)
@@ -113,58 +150,20 @@ int NFD_lib::VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pw
 #endif
 QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
 {
-    QString sResult;
-
-    XScanEngine::SCAN_OPTIONS options={};
-
-    if(nFlags&SF_DEEPSCAN) {
-        options.bIsDeepScan=true;
-    }
-
-    if(nFlags&SF_HEURISTICSCAN) {
-        options.bIsHeuristicScan=true;
-    }
-
-    if(nFlags&SF_VERBOSE) {
-        options.bIsVerbose=true;
-    }
-
-    if(nFlags&SF_ALLTYPESSCAN) {
-        options.bAllTypesScan=true;
-    }
-
-    if(nFlags&SF_RECURSIVESCAN) {
-        options.bIsRecursiveScan=true;
-    }
-
-    if(nFlags&SF_RESULTASJSON) {
-        options.bResultAsJSON=true;
-    }
-
-    if(nFlags&SF_RESULTASXML) {
-        options.bResultAsXML=true;
-    }
-
-    if(nFlags&SF_RESULTASTSV) {
-        options.bResultAsTSV=true;
-    }
-
-    if(nFlags&SF_RESULTASCSV) {
-        options.bResultAsCSV=true;
-    }
-
+    XScanEngine::SCAN_OPTIONS options=XScanEngine::getDefaultOptions(nFlags);
     XScanEngine::SCAN_RESULT scanResult=SpecAbstract().scanFile(sFileName,&options);
 
-    ScanItemModel model(&(scanResult.listRecords), 1, false);
+    ScanItemModel model(&options, &(scanResult.listRecords), 1);
 
-    XBinary::FORMATTYPE formatType = XBinary::FORMATTYPE_TEXT;
+    return model.toString();
+}
 
-    if (options.bResultAsCSV) formatType = XBinary::FORMATTYPE_CSV;
-    else if (options.bResultAsJSON) formatType = XBinary::FORMATTYPE_JSON;
-    else if (options.bResultAsTSV) formatType = XBinary::FORMATTYPE_TSV;
-    else if (options.bResultAsXML) formatType = XBinary::FORMATTYPE_XML;
+QString NFD_lib::_scanMemory(char *pMemory, int nMemorySize, quint32 nFlags)
+{
+    XScanEngine::SCAN_OPTIONS options=XScanEngine::getDefaultOptions(nFlags);
+    XScanEngine::SCAN_RESULT scanResult=SpecAbstract().scanMemory(pMemory, nMemorySize, &options);
 
-    sResult = model.toString(formatType);
+    ScanItemModel model(&options, &(scanResult.listRecords), 1);
 
-    return sResult;
+    return model.toString();
 }
