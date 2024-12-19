@@ -26,12 +26,12 @@ extern "C" {
 
 LIB_SOURCE_EXPORT char *NFD_ScanFileA(char *pszFileName, unsigned int nFlags)
 {
-    return NFD_lib().scanFileA(pszFileName,nFlags);
+    return NFD_lib().scanFileA(pszFileName, nFlags);
 }
 
 LIB_SOURCE_EXPORT wchar_t *NFD_ScanFileW(wchar_t *pwszFileName, unsigned int nFlags)
 {
-    return NFD_lib().scanFileW(pwszFileName,nFlags);
+    return NFD_lib().scanFileW(pwszFileName, nFlags);
 }
 
 LIB_SOURCE_EXPORT char *NFD_ScanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags)
@@ -66,18 +66,17 @@ LIB_SOURCE_EXPORT int NFD_VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags
 
 NFD_lib::NFD_lib()
 {
-
 }
 
 char *NFD_lib::scanFileA(char *pszFileName, unsigned int nFlags)
 {
-    QString sResult=_scanFile(pszFileName,nFlags);
+    QString sResult = _scanFile(pszFileName, nFlags);
 
     QByteArray baResult = sResult.toUtf8();
 
-    char *pBuffer=new char[baResult.size() + 1];
+    char *pBuffer = new char[baResult.size() + 1];
 
-    XBinary::_copyMemory(pBuffer,baResult.data(),baResult.size());
+    XBinary::_copyMemory(pBuffer, baResult.data(), baResult.size());
     pBuffer[baResult.size()] = 0;
 
     return pBuffer;
@@ -85,11 +84,11 @@ char *NFD_lib::scanFileA(char *pszFileName, unsigned int nFlags)
 
 wchar_t *NFD_lib::scanFileW(wchar_t *pwszFileName, unsigned int nFlags)
 {
-    QString sResult=_scanFile(QString::fromWCharArray(pwszFileName,-1),nFlags);
+    QString sResult = _scanFile(QString::fromWCharArray(pwszFileName, -1), nFlags);
 
-    int nSize=(sResult.size()+1)*2;
+    int nSize = (sResult.size() + 1) * 2;
 
-    char *pBuffer=new char[nSize];
+    char *pBuffer = new char[nSize];
 
     sResult.toWCharArray((wchar_t *)pBuffer);
 
@@ -98,13 +97,13 @@ wchar_t *NFD_lib::scanFileW(wchar_t *pwszFileName, unsigned int nFlags)
 
 char *NFD_lib::scanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags)
 {
-    QString sResult=_scanMemory(pMemory, nMemorySize, nFlags);
+    QString sResult = _scanMemory(pMemory, nMemorySize, nFlags);
 
     QByteArray baResult = sResult.toUtf8();
 
-    char *pBuffer=new char[baResult.size() + 1];
+    char *pBuffer = new char[baResult.size() + 1];
 
-    XBinary::_copyMemory(pBuffer,baResult.data(),baResult.size());
+    XBinary::_copyMemory(pBuffer, baResult.data(), baResult.size());
     pBuffer[baResult.size()] = 0;
 
     return pBuffer;
@@ -112,11 +111,11 @@ char *NFD_lib::scanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags)
 
 wchar_t *NFD_lib::scanMemoryW(char *pMemory, int nMemorySize, unsigned int nFlags)
 {
-    QString sResult=_scanMemory(pMemory, nMemorySize, nFlags);
+    QString sResult = _scanMemory(pMemory, nMemorySize, nFlags);
 
-    int nSize=(sResult.size()+1)*2;
+    int nSize = (sResult.size() + 1) * 2;
 
-    char *pBuffer=new char[nSize];
+    char *pBuffer = new char[nSize];
 
     sResult.toWCharArray((wchar_t *)pBuffer);
 
@@ -125,12 +124,12 @@ wchar_t *NFD_lib::scanMemoryW(char *pMemory, int nMemorySize, unsigned int nFlag
 
 void NFD_lib::freeMemoryA(char *pszString)
 {
-    delete [] pszString;
+    delete[] pszString;
 }
 
 void NFD_lib::freeMemoryW(wchar_t *pwszString)
 {
-    delete [] pwszString;
+    delete[] pwszString;
 }
 
 #ifdef Q_OS_WIN32
@@ -138,7 +137,7 @@ int NFD_lib::VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pw
 {
     int nResult = 0;
 
-    QString sResult=_scanFile(QString::fromWCharArray(pwszFileName,-1),nFlags);
+    QString sResult = _scanFile(QString::fromWCharArray(pwszFileName, -1), nFlags);
 
     if (sResult.size() < nBufferSize) {
         sResult.toWCharArray(pwszBuffer);
@@ -150,8 +149,8 @@ int NFD_lib::VB_ScanFile(wchar_t *pwszFileName, unsigned int nFlags, wchar_t *pw
 #endif
 QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
 {
-    XScanEngine::SCAN_OPTIONS options=XScanEngine::getDefaultOptions(nFlags);
-    XScanEngine::SCAN_RESULT scanResult=SpecAbstract().scanFile(sFileName,&options);
+    XScanEngine::SCAN_OPTIONS options = XScanEngine::getDefaultOptions(nFlags);
+    XScanEngine::SCAN_RESULT scanResult = SpecAbstract().scanFile(sFileName, &options);
 
     ScanItemModel model(&options, &(scanResult.listRecords), 1);
 
@@ -160,8 +159,8 @@ QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
 
 QString NFD_lib::_scanMemory(char *pMemory, int nMemorySize, quint32 nFlags)
 {
-    XScanEngine::SCAN_OPTIONS options=XScanEngine::getDefaultOptions(nFlags);
-    XScanEngine::SCAN_RESULT scanResult=SpecAbstract().scanMemory(pMemory, nMemorySize, &options);
+    XScanEngine::SCAN_OPTIONS options = XScanEngine::getDefaultOptions(nFlags);
+    XScanEngine::SCAN_RESULT scanResult = SpecAbstract().scanMemory(pMemory, nMemorySize, &options);
 
     ScanItemModel model(&options, &(scanResult.listRecords), 1);
 

@@ -29,17 +29,16 @@
 #endif
 
 #if defined(LIB_SOURCE_LIBRARY)
-#  define LIB_SOURCE_EXPORT Q_DECL_EXPORT
+#define LIB_SOURCE_EXPORT Q_DECL_EXPORT
 #else
-#  define LIB_SOURCE_EXPORT Q_DECL_IMPORT
+#define LIB_SOURCE_EXPORT Q_DECL_IMPORT
 #endif
 
-class NFD_lib
-{
+class NFD_lib {
 public:
     NFD_lib();
     char *scanFileA(char *pszFileName, unsigned int nFlags);
-    wchar_t *scanFileW(wchar_t *pwszFileName,unsigned int nFlags);
+    wchar_t *scanFileW(wchar_t *pwszFileName, unsigned int nFlags);
     char *scanMemoryA(char *pMemory, int nMemorySize, unsigned int nFlags);
     wchar_t *scanMemoryW(char *pMemory, int nMemorySize, unsigned int nFlags);
     void freeMemoryA(char *pszString);
@@ -49,8 +48,8 @@ public:
 #endif
 
 private:
-    QString _scanFile(QString sFileName,quint32 nFlags);
+    QString _scanFile(QString sFileName, quint32 nFlags);
     QString _scanMemory(char *pMemory, int nMemorySize, quint32 nFlags);
 };
 
-#endif // NFD_LIB_H
+#endif  // NFD_LIB_H
