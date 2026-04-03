@@ -21,4 +21,5 @@ deploy_init()
 
 add_subdirectory(../dep/XCapstone/x86 XCapstone)
 add_subdirectory(../dep/XArchive XArchive)
+add_subdirectory(../dep/Formats/xsimd XSIMD)
 add_subdirectory(lib nfdlib)

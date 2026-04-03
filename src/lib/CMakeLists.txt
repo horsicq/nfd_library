@@ -27,7 +27,8 @@ add_definitions(
     -DUSE_DEX
     -DUSE_PDF
     -DUSE_ARCHIVE
-    -DUSE_YARA
+    -DUSE_YARA  
+    -DUSE_XSIMD
     )
 
 include(${CMAKE_CURRENT_LIST_DIR}/../../dep/SpecAbstract/specabstract.cmake)
@@ -58,6 +59,7 @@ target_link_libraries(nfd PRIVATE lzma)
 target_link_libraries(nfd PRIVATE zlib)
 target_link_libraries(nfd PRIVATE ppmd)
 target_link_libraries(nfd PRIVATE capstone_x86)
+target_link_libraries(nfd PRIVATE xsimd)
 
 if(${QT_VERSION_MAJOR} EQUAL 4)
     target_link_libraries(nfd PRIVATE Qt4::QtCore)

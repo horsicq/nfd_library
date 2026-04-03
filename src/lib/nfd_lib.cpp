@@ -152,7 +152,7 @@ QString NFD_lib::_scanFile(QString sFileName, quint32 nFlags)
     XScanEngine::SCAN_OPTIONS options = XScanEngine::getDefaultOptions(nFlags);
     XScanEngine::SCAN_RESULT scanResult = SpecAbstract().scanFile(sFileName, &options);
 
-    ScanItemModel model(&options, &(scanResult.listRecords), 1);
+    ScanItemModel model(&options, &(scanResult.listRecords), 1, nullptr);
 
     return model.toString();
 }
@@ -162,7 +162,7 @@ QString NFD_lib::_scanMemory(char *pMemory, int nMemorySize, quint32 nFlags)
     XScanEngine::SCAN_OPTIONS options = XScanEngine::getDefaultOptions(nFlags);
     XScanEngine::SCAN_RESULT scanResult = SpecAbstract().scanMemory(pMemory, nMemorySize, &options);
 
-    ScanItemModel model(&options, &(scanResult.listRecords), 1);
+    ScanItemModel model(&options, &(scanResult.listRecords), 1, nullptr);
 
     return model.toString();
 }
