@@ -58,12 +58,6 @@ target_link_libraries(nfd PRIVATE bzip2)
 target_link_libraries(nfd PRIVATE lzma)
 target_link_libraries(nfd PRIVATE zlib)
 target_link_libraries(nfd PRIVATE ppmd)
-# xarchive_7zip: xarchives_ip7z.cpp is unconditional in XARCHIVE_SOURCES
-# (XArchive/xarchive.cmake), so the in-process 7-Zip core has to be linked or
-# the build ends at LINK with ~12 unresolved externals (CreateArchiver,
-# GetIsArc, GetNumberOfFormats, GetHandlerProperty2, UString::UString,
-# NWindows::NCOM::CPropVariant::*, CLimitedInStream::*).
-target_link_libraries(nfd PRIVATE xarchive_7zip)
 target_link_libraries(nfd PRIVATE capstone_x86)
 target_link_libraries(nfd PRIVATE xsimd)
 
