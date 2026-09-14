@@ -51,10 +51,6 @@ endif()
 
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-target_link_libraries(nfd PRIVATE bzip2)
-target_link_libraries(nfd PRIVATE lzma)
-target_link_libraries(nfd PRIVATE zlib)
-target_link_libraries(nfd PRIVATE ppmd)
 target_link_libraries(nfd PRIVATE capstone_x86)
 target_link_libraries(nfd PRIVATE xsimd)
 
